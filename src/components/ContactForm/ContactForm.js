@@ -5,7 +5,7 @@ import { addContact } from '../../redux/phoneBook/phonebook-operations';
 
 const ContactForm = ({
   onSetName,
-  onAddContact,
+  // onAddContact,
   name,
   number,
   addContact,

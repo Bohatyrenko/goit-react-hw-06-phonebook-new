@@ -9,8 +9,11 @@ import {
   getContactRequest,
   getContactSuccess,
 } from './phonebook-actions';
+
 import axios from 'axios';
+
 axios.defaults.baseURL = 'http://localhost:4040/';
+
 export const addContact = contact => dispatch => {
   dispatch(addContactRequest());
   axios
