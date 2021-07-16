@@ -1,5 +1,7 @@
 import React from 'react';
-import style from '../ContactFilter/contactFilter.module.css';
+import { connect } from 'react-redux';
+// import style from '../ContactFilter/contactFilter.module.css';
+import { filterContact } from '../../redux/phoneBook/phonebook-actions';
 
 const ContactFilter = ({ onSetFilter, filter }) => (
   <>
@@ -10,4 +12,12 @@ const ContactFilter = ({ onSetFilter, filter }) => (
   </>
 );
 
-export default ContactFilter;
+const mapStateToProps = state => ({
+  filter: state.phonebookFilter,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onSetFilter: ({ target: { value } }) => dispatch(filterContact(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactFilter);

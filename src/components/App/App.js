@@ -3,21 +3,19 @@ import { useState, useEffect } from 'react';
 import style from './app.module.css';
 
 //libraries
-import shortid from 'shortid';
+// import shortid from 'shortid';
 
 //helpers
-import getFilteredContacts from '../../helpers/filterContacts';
+// import getFilteredContacts from '../../helpers/filterContacts';
 
 //Components
 import ContactForm from '../ContactForm/ContactForm';
-import ContactList from '../ContactList/ContactList';
+import ContactList from '../ContactList/ContactList.container';
 import ContactFilter from '../ContactFilter/ContactFilter';
 
 const initilState = {
-  contacts: [],
   name: '',
   number: '',
-  filter: '',
 };
 
 function App() {
@@ -42,61 +40,68 @@ function App() {
   };
 
   //Добавляем контакт в наш массив контактов
-  const handleAddContact = e => {
-    e.preventDefault();
-    const contact = {
-      name: state.name,
-      number: state.number,
-      id: shortid.generate(),
-    };
-    if (state.contacts.map(el => el.name).includes(state.name)) {
-      alert('Остановись, контакт с таким именем уже существует');
-      return;
-    }
-    localStorage.setItem(
-      'contacts',
-      JSON.stringify([...state.contacts, contact]),
-    );
-    setState(prev => ({
-      ...prev,
-      contacts: [...prev.contacts, contact],
+  // const handleAddContact = e => {
+  //   e.preventDefault();
+  //   const contact = {
+  //     name: state.name,
+  //     number: state.number,
+  //     id: shortid.generate(),
+  //   };
+  //   if (state.contacts.map(el => el.name).includes(state.name)) {
+  //     alert('Остановись, контакт с таким именем уже существует');
+  //     return;
+  //   }
+  //   localStorage.setItem(
+  //     'contacts',
+  //     JSON.stringify([...state.contacts, contact]),
+  //   );
+  //   setState(prev => ({
+  //     ...prev,
+  //     contacts: [...prev.contacts, contact],
+  //     name: '',
+  //     number: '',
+  //   }));
+  // };
+
+  const handleReset = () => {
+    setState({
       name: '',
       number: '',
-    }));
+    });
   };
 
   //Удаляем контакт из ContactList
-  const handleDeleteContact = ({ target: { id } }) => {
-    setState(prev => ({
-      ...prev,
-      contacts: state.contacts.filter(el => el.id !== id),
-    }));
-    localStorage.setItem(
-      'contacts',
-      JSON.stringify(state.contacts.filter(el => el.id !== id)),
-    );
-  };
+  // const handleDeleteContact = ({ target: { id } }) => {
+  //   setState(prev => ({
+  //     ...prev,
+  //     contacts: state.contacts.filter(el => el.id !== id),
+  //   }));
+  //   localStorage.setItem(
+  //     'contacts',
+  //     JSON.stringify(state.contacts.filter(el => el.id !== id)),
+  //   );
+  // };
 
   //Делаем фильтр контактов
-  const contacts = getFilteredContacts(state.contacts, state.filter);
+  // const contacts = getFilteredContacts(state.contacts, state.filter);
 
   return (
     <div className={style.app}>
       <h1>Phonebook</h1>
       <ContactForm
         onSetName={handleSetName}
+        reset={handleReset}
         name={state.name}
         number={state.number}
-        onAddContact={handleAddContact}
+        // onAddContact={handleAddContact}
         // onSubmit={this.formSubmit}
         // input={this.state}
         // options={this}
         // optionsTel={this.handleTelChange}
       />
-      {state.contacts.length > 1 && (
-        <ContactFilter onSetFilter={handleSetName} filter={state.filter} />
-      )}
-      <ContactList contacts={contacts} onDeleteContact={handleDeleteContact} />
+      {/* {state.contacts.length > 1 && <ContactFilter />} */}
+      <ContactFilter />
+      <ContactList />
     </div>
   );
 }
