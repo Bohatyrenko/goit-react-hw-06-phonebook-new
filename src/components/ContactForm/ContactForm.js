@@ -10,15 +10,34 @@ const ContactForm = ({
   number,
   addContact,
   reset,
+  phonebookContacts,
 }) => {
+  const noRepeetContact = contact => {
+    if (
+      phonebookContacts.some(
+        item => item.name.toLowerCase() === contact.name.toLowerCase(),
+      )
+    ) {
+      alert(`${contact.name} is alredy in contacts!`);
+      return;
+    }
+    if (phonebookContacts.some(item => item.number === contact.number)) {
+      alert(`${contact.number} is alredy in contacts!`);
+      return;
+    }
+
+    addContact(contact);
+    reset();
+  };
+
   const handleAddContact = e => {
     e.preventDefault();
     const contact = {
       name,
       number,
     };
-    addContact(contact);
-    reset();
+
+    noRepeetContact(contact);
   };
 
   return (
@@ -58,7 +77,9 @@ const ContactForm = ({
   );
 };
 
-const mapStateToProps = state => state;
+const mapStateToProps = state => ({
+  phonebookContacts: state.phonebookContacts,
+});
 
 const mapDispatchToProps = dispatch => {
   return {
