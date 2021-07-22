@@ -4,9 +4,11 @@ import {
   contactFetch,
 } from '../../redux/phoneBook/phonebook-operations';
 import ContactList from './ContactList';
+import phonebookSelectors from '../../redux/phoneBook/phonebook-selectors';
+
 const mapStateToProps = state => ({
-  contacts: state.phonebookContacts,
-  filter: state.phonebookFilter,
+  contacts: phonebookSelectors.getPhonebookContacts(state),
+  filter: phonebookSelectors.getFilter(state),
 });
 
 const mapDispatchToProps = dispatch => {

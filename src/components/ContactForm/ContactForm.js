@@ -2,6 +2,7 @@ import React from 'react'; //при закоментированом вариа�
 import style from '../ContactForm/contactForm.module.css';
 import { connect } from 'react-redux';
 import { addContact } from '../../redux/phoneBook/phonebook-operations';
+import phonebookSelectors from '../../redux/phoneBook/phonebook-selectors';
 
 const ContactForm = ({
   onSetName,
@@ -78,7 +79,7 @@ const ContactForm = ({
 };
 
 const mapStateToProps = state => ({
-  phonebookContacts: state.phonebookContacts,
+  phonebookContacts: phonebookSelectors.getPhonebookContacts(state),
 });
 
 const mapDispatchToProps = dispatch => {

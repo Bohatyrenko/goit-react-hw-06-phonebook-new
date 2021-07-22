@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 // import style from '../ContactFilter/contactFilter.module.css';
 import { filterContact } from '../../redux/phoneBook/phonebook-actions';
+import phonebookSelectors from '../../redux/phoneBook/phonebook-selectors';
 
 const ContactFilter = ({ onSetFilter, filter }) => (
   <>
@@ -13,7 +14,7 @@ const ContactFilter = ({ onSetFilter, filter }) => (
 );
 
 const mapStateToProps = state => ({
-  filter: state.phonebookFilter,
+  filter: phonebookSelectors.getFilter(state),
 });
 
 const mapDispatchToProps = dispatch => ({
